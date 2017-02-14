@@ -1,40 +1,48 @@
 package com.company;
 
 import java.security.InvalidParameterException;
+import java.util.Iterator;
 
 /**
  * Created by hackeru on 2/14/2017.
  */
-public class LinkedList implements List {
+public class LinkedList implements List,Iterator,Iterable {
     private Node anchor;
     private int size;
+    private Node last;
+    private Node current;
+
 
     public LinkedList() {
        anchor=new Node(123);
        size=0;
+       last=anchor;
     }
 
     @Override
     public void add(int x) {
-        Node n=anchor;
+     /*   Node n=anchor;
         while (n.next!=null)
-        n=n.next;
-        n.next=new Node(x);
-
+        n=n.next;*/
+        last.next=new Node(x);
+        last=last.next;
       size++;
 
 
     }
-
-
-
 
         @Override
         public void add(int x, int index) {
             Node temp;
             if(index<0||index>size)
                 throw new IndexOutOfBoundsException("not valid") ;
-            Node n=anchor;
+
+            if(index==size)
+            {
+                add(x);
+                return;
+            }
+                Node n=anchor;
             for (int i = 0; i <index; i++) {
                 n = n.next;
                 size++;
@@ -58,7 +66,9 @@ public class LinkedList implements List {
         Node n=anchor;
         for (int i = 0; i <index ; i++) {
             n=n.next;
-            n.next=n.next.next;
+            if(index==size)
+                last=n;
+                n.next=n.next.next;
             size--;
 
         }
@@ -136,6 +146,24 @@ public class LinkedList implements List {
         return stringBuilder.toString();
 
         }
+
+    @Override
+    public Iterator iterator() {
+        current=anchor;
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return   current.next!=null;
+    }
+
+    @Override
+    public Object next() {
+        current=current.next;
+        return current.value;     //ממיר רת זה ל-INTENGER ואז הוא מתנהג כ- OBJECT
+
+    }
 
     private static class Node{
 
