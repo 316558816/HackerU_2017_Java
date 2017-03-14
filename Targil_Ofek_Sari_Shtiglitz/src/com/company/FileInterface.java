@@ -6,7 +6,7 @@ package com.company;
 public interface FileInterface  {
 
     public  boolean exist();
-    public boolean readFile();
+  //  public boolean readFile();
 
 
 }

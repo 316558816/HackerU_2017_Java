@@ -19,10 +19,18 @@ public class MyFileText<T> extends File implements FileInterface {
     public MyFileText(String pathname) {
         super(pathname);
 
-       exist();
-       readFile();
-
     }
+    public boolean checkFile() {
+
+        if (!exist())
+            return false;
+
+        else
+            return true;
+    }
+
+
+
 
 
 
@@ -54,10 +62,6 @@ public class MyFileText<T> extends File implements FileInterface {
          return true;
     }
 
-    @Override
-    public boolean readFile() {
-        return canRead();
-    }
 
 
 }
